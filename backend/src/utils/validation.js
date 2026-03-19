@@ -6,6 +6,10 @@ function isEmail(value) {
   return isNonEmptyString(value) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
 }
 
+function isApsitEmail(value) {
+  return isEmail(value) && value.trim().toLowerCase().endsWith('@apsit.edu.in')
+}
+
 function validateAuthPayload(payload, mode) {
   const errors = []
 
@@ -23,6 +27,8 @@ function validateAuthPayload(payload, mode) {
 
   if (!isEmail(payload.email)) {
     errors.push('A valid email is required')
+  } else if (!isApsitEmail(payload.email)) {
+    errors.push('Only @apsit.edu.in email addresses are allowed')
   }
 
   if (!isNonEmptyString(payload.password)) {

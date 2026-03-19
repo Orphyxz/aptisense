@@ -73,10 +73,13 @@ export default function RegisterPage() {
             <input
               className="field"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Enter your @apsit.edu.in email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
+            <p className="mt-2 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+              Registration is limited to APSIT email addresses.
+            </p>
           </div>
 
           <div>

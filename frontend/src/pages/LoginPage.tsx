@@ -43,56 +43,73 @@ export default function LoginPage() {
 
   return (
     <div className="page-wrap">
-      <div className="mx-auto max-w-md bento-card card-padding">
-        <div className="mb-6">
-          <h1 className="page-title" style={{ fontSize: '2rem' }}>Login</h1>
-          <p className="page-subtitle">
-            Access your AptiSense workspace.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="metric-label block mb-2">Email</label>
-            <input
-              className="field"
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="metric-label block mb-2">Password</label>
-            <input
-              className="field"
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          {error ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-              {error}
+      <div className="auth-stage">
+        <section className="bento-card auth-form-shell auth-form-shell-single">
+          <div className="auth-form-header">
+            <div>
+              <div className="auth-form-kicker">Welcome Back</div>
+              <h1 className="page-title" style={{ fontSize: '2rem' }}>Login</h1>
+              <p className="page-subtitle">
+                Access your AptiSense workspace with your APSIT email.
+              </p>
             </div>
-          ) : null}
 
-          <button className="primary-btn w-full" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
+            <div className="auth-credential-card">
+              <div className="metric-label">Campus Access</div>
+              <div className="auth-credential-domain">@apsit.edu.in</div>
+            </div>
+          </div>
 
-        <div className="soft-divider"></div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="metric-label block mb-2">Email</label>
+              <input
+                className="field"
+                type="email"
+                placeholder="Enter your @apsit.edu.in email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <p className="mt-2 text-xs" style={{ color: 'var(--color-text-muted)' }}>
+                Only APSIT email addresses are allowed.
+              </p>
+            </div>
 
-        <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-          Don't have an account?{' '}
-          <Link to="/register" className="font-bold" style={{ color: 'var(--color-primary)' }}>
-            Register
-          </Link>
-        </div>
+            <div>
+              <label className="metric-label block mb-2">Password</label>
+              <input
+                className="field"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            {error ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                {error}
+              </div>
+            ) : null}
+
+            <button className="primary-btn w-full" disabled={loading}>
+              {loading ? 'Logging in...' : 'Enter Dashboard'}
+            </button>
+          </form>
+
+          <div className="soft-divider"></div>
+
+          <div className="auth-footer-row">
+            <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
+              Don&apos;t have an account?{' '}
+              <Link to="/register" className="font-bold" style={{ color: 'var(--color-primary)' }}>
+                Register
+              </Link>
+            </div>
+
+            <div className="auth-footer-tag">Secure role-based access</div>
+          </div>
+        </section>
       </div>
     </div>
   )
