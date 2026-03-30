@@ -57,6 +57,19 @@ export const api = {
 
   getWeakTopics: (token: string) => request('/analytics/weak-topics', {}, token),
 
+  getNotes: (token: string) => request('/notes', {}, token),
+
+  createNote: (payload: unknown, token: string) =>
+    request('/notes', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }, token),
+
+  deleteNote: (id: string, token: string) =>
+    request(`/notes/${id}`, {
+      method: 'DELETE',
+    }, token),
+
   predict: (token: string) =>
     request('/predict', {
       method: 'POST',

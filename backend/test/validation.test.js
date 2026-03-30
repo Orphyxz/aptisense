@@ -10,7 +10,7 @@ const {
 test('validateAuthPayload accepts a valid register payload', () => {
   const errors = validateAuthPayload({
     name: 'Aryan Kumar',
-    email: 'aryan@example.com',
+    email: 'aryan@apsit.edu.in',
     password: 'secure123',
     role: 'student'
   }, 'register')

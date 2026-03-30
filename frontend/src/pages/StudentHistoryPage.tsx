@@ -7,6 +7,7 @@ import LoadingSkeleton from '../components/ui/LoadingSkeleton'
 import SectionHeader from '../components/ui/SectionHeader'
 import MetricCard from '../components/ui/MetricCard'
 import { getErrorMessage } from '../error'
+import { getStatusBadgeClass, type PerformanceStatus } from '../performance-status'
 
 type Attempt = {
   _id: string
@@ -15,7 +16,7 @@ type Attempt = {
   avgScore: number
   accuracy: number
   timeTaken: number
-  status: 'Safe' | 'Moderate' | 'At Risk' | 'Not Attempted'
+  status: PerformanceStatus
   test: {
     title: string
     company: string
@@ -30,9 +31,18 @@ type Attempt = {
   }>
 }
 
+type DifficultySummary = Record<'Easy' | 'Medium' | 'Hard', {
+  attempts: number
+  avgScore: number
+  latestScore: number | null
+  bestScore: number | null
+  students: number
+}>
+
 export default function StudentHistoryPage() {
   const { user, token } = useAuth()
   const [attempts, setAttempts] = useState<Attempt[]>([])
+  const [difficultySummary, setDifficultySummary] = useState<DifficultySummary | null>(null)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
 
@@ -42,6 +52,7 @@ export default function StudentHistoryPage() {
       try {
         const data = await api.getStudentHistory(user._id, token)
         setAttempts(data.attempts || [])
+        setDifficultySummary(data.difficultySummary || null)
       } catch (err) {
         setError(getErrorMessage(err))
       } finally {
@@ -53,27 +64,17 @@ export default function StudentHistoryPage() {
   }, [token, user])
 
   const summary = useMemo(() => {
-    const safe = attempts.filter((attempt) => attempt.status === 'Safe').length
-    const moderate = attempts.filter((attempt) => attempt.status === 'Moderate').length
-    const atRisk = attempts.filter((attempt) => attempt.status === 'At Risk').length
-    const avgScore = attempts.length
-      ? Number((attempts.reduce((sum, attempt) => sum + attempt.avgScore, 0) / attempts.length).toFixed(2))
-      : 0
+    const onTrack = attempts.filter((attempt) => attempt.status === 'On Track').length
+    const buildingMomentum = attempts.filter((attempt) => attempt.status === 'Building Momentum').length
+    const needsSupport = attempts.filter((attempt) => attempt.status === 'Needs Support').length
 
     return {
       total: attempts.length,
-      safe,
-      moderate,
-      atRisk,
-      avgScore,
+      onTrack,
+      buildingMomentum,
+      needsSupport,
     }
   }, [attempts])
-
-  function badge(status: Attempt['status']) {
-    if (status === 'Safe') return 'badge-safe'
-    if (status === 'Moderate') return 'badge-moderate'
-    return 'badge-risk'
-  }
 
   function levelStyle(level: Attempt['test']['level']) {
     if (level === 'Easy') {
@@ -103,10 +104,22 @@ export default function StudentHistoryPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5 mb-6">
         <MetricCard label="Total Attempts" value={summary.total} helper="All completed mock submissions" />
-        <MetricCard label="Average Score" value={`${summary.avgScore}%`} helper="Average across every attempt" />
-        <MetricCard label="Safe" value={summary.safe} helper="Strong attempts" />
-        <MetricCard label="Moderate" value={summary.moderate} helper="Needs some refinement" />
-        <MetricCard label="At Risk" value={summary.atRisk} helper="High-improvement attempts" />
+        <MetricCard
+          label="Easy Avg"
+          value={`${difficultySummary?.Easy?.avgScore ?? 0}%`}
+          helper={difficultySummary?.Easy?.attempts ? `${difficultySummary.Easy.attempts} easy attempts` : 'No easy attempts yet'}
+        />
+        <MetricCard
+          label="Medium Avg"
+          value={`${difficultySummary?.Medium?.avgScore ?? 0}%`}
+          helper={difficultySummary?.Medium?.attempts ? `${difficultySummary.Medium.attempts} medium attempts` : 'No medium attempts yet'}
+        />
+        <MetricCard
+          label="Hard Avg"
+          value={`${difficultySummary?.Hard?.avgScore ?? 0}%`}
+          helper={difficultySummary?.Hard?.attempts ? `${difficultySummary.Hard.attempts} hard attempts` : 'No hard attempts yet'}
+        />
+        <MetricCard label="On Track" value={summary.onTrack} helper="Confident attempts" />
       </div>
 
       <div className="bento-card card-padding">
@@ -144,7 +157,7 @@ export default function StudentHistoryPage() {
 
                   <div className="flex flex-wrap gap-2">
                     <div className="status-pill" style={levelStyle(attempt.test.level)}>{attempt.test.level}</div>
-                    <div className={badge(attempt.status)}>{attempt.status}</div>
+                    <div className={getStatusBadgeClass(attempt.status)}>{attempt.status}</div>
                   </div>
                 </div>
 

@@ -7,6 +7,7 @@ import LoadingSkeleton from '../components/ui/LoadingSkeleton'
 import MetricCard from '../components/ui/MetricCard'
 import SectionHeader from '../components/ui/SectionHeader'
 import { getErrorMessage } from '../error'
+import { getStatusBadgeClass, type PerformanceStatus } from '../performance-status'
 
 type Attempt = {
   _id: string
@@ -15,7 +16,7 @@ type Attempt = {
   avgScore: number
   accuracy: number
   timeTaken: number
-  status: 'Safe' | 'Moderate' | 'At Risk' | 'Not Attempted'
+  status: PerformanceStatus
   test: {
     title: string
     company: string
@@ -42,15 +43,23 @@ type StudentDetail = {
     avgScore: number
     bestScore: number
     latestScore: number | null
-    safe: number
-    moderate: number
-    atRisk: number
+    onTrack: number
+    buildingMomentum: number
+    needsSupport: number
+    gettingStarted: number
   }
   levelBreakdown: {
     Easy: number
     Medium: number
     Hard: number
   }
+  difficultySummary: Record<'Easy' | 'Medium' | 'Hard', {
+    attempts: number
+    avgScore: number
+    latestScore: number | null
+    bestScore: number | null
+    students: number
+  }>
   attempts: Attempt[]
 }
 
@@ -83,12 +92,6 @@ export default function AdminStudentDetailPage() {
     const best = entries.sort((a, b) => b[1] - a[1])[0]
     return best && best[1] > 0 ? best[0] : 'None yet'
   }, [detail])
-
-  function badge(status: Attempt['status']) {
-    if (status === 'Safe') return 'badge-safe'
-    if (status === 'Moderate') return 'badge-moderate'
-    return 'badge-risk'
-  }
 
   function levelStyle(level: Attempt['test']['level']) {
     if (level === 'Easy') return { background: 'rgba(11,148,136,0.10)', color: '#0b9488' }
@@ -141,28 +144,47 @@ export default function AdminStudentDetailPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-5 mb-6">
-            <MetricCard label="Average Score" value={`${detail.summary.avgScore}%`} helper="Across all attempts" />
-            <MetricCard label="Best Score" value={`${detail.summary.bestScore}%`} helper="Highest attempt score" />
-            <MetricCard label="Latest Score" value={detail.summary.latestScore !== null ? `${detail.summary.latestScore}%` : '-'} helper="Most recent submission" />
-            <MetricCard label="Safe Attempts" value={detail.summary.safe} helper="Strong performances" />
-            <MetricCard label="At Risk Attempts" value={detail.summary.atRisk} helper="Needs intervention" />
+            <MetricCard
+              label="Easy Avg"
+              value={`${detail.difficultySummary.Easy.avgScore}%`}
+              helper={detail.difficultySummary.Easy.attempts ? `${detail.difficultySummary.Easy.attempts} easy attempts` : 'No easy attempts yet'}
+            />
+            <MetricCard
+              label="Medium Avg"
+              value={`${detail.difficultySummary.Medium.avgScore}%`}
+              helper={detail.difficultySummary.Medium.attempts ? `${detail.difficultySummary.Medium.attempts} medium attempts` : 'No medium attempts yet'}
+            />
+            <MetricCard
+              label="Hard Avg"
+              value={`${detail.difficultySummary.Hard.avgScore}%`}
+              helper={detail.difficultySummary.Hard.attempts ? `${detail.difficultySummary.Hard.attempts} hard attempts` : 'No hard attempts yet'}
+            />
+            <MetricCard label="On Track" value={detail.summary.onTrack} helper="Confident performances" />
+            <MetricCard label="Needs Support" value={detail.summary.needsSupport} helper="Best coaching opportunities" />
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 mb-6">
             <div className="xl:col-span-4 bento-card card-padding">
               <SectionHeader
                 title="Difficulty Mix"
-                subtitle="How often this student attempts each level"
+                subtitle="Difficulty-specific averages, best scores, and attempt counts"
               />
               <div className="space-y-3">
                 {(['Easy', 'Medium', 'Hard'] as const).map((level) => (
                   <div
                     key={level}
-                    className="rounded-2xl border p-4 flex items-center justify-between"
+                    className="rounded-2xl border p-4"
                     style={{ borderColor: 'var(--color-border)' }}
                   >
-                    <div className="status-pill" style={levelStyle(level)}>{level}</div>
-                    <div className="text-2xl font-extrabold mono">{detail.levelBreakdown[level]}</div>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="status-pill" style={levelStyle(level)}>{level}</div>
+                      <div className="text-2xl font-extrabold mono">{detail.difficultySummary[level].avgScore}%</div>
+                    </div>
+                    <div className="mt-3 text-sm" style={{ color: 'var(--color-text-muted)' }}>
+                      {detail.difficultySummary[level].attempts
+                        ? `${detail.difficultySummary[level].attempts} attempts • latest ${detail.difficultySummary[level].latestScore}% • best ${detail.difficultySummary[level].bestScore}%`
+                        : 'No attempts recorded at this difficulty yet.'}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -186,7 +208,7 @@ export default function AdminStudentDetailPage() {
                       </div>
                       <div className="flex flex-wrap gap-2">
                         <div className="status-pill" style={levelStyle(attempt.test.level)}>{attempt.test.level}</div>
-                        <div className={badge(attempt.status)}>{attempt.status}</div>
+                        <div className={getStatusBadgeClass(attempt.status)}>{attempt.status}</div>
                       </div>
                     </div>
 

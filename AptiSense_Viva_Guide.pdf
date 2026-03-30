@@ -1,0 +1,335 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 3 /Kids [3 0 R 4 0 R 5 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 6 0 R >> >> /Contents 7 0 R >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 6 0 R >> >> /Contents 8 0 R >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 6 0 R >> >> /Contents 9 0 R >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+7 0 obj
+<< /Length 2656 >>
+stream
+BT
+/F1 16 Tf
+72 800 Td
+(AptiSense Viva and Presentation Guide) Tj
+0 -28 Td
+/F1 11 Tf
+() Tj
+0 -16 Td
+(Project Title) Tj
+0 -16 Td
+(AptiSense: AI-Powered Aptitude Assessment and Placement Readiness Prediction System) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(1. One-Line Introduction) Tj
+0 -16 Td
+(AptiSense is a web-based aptitude assessment platform that helps students take mock tests,) Tj
+0 -16 Td
+(analyze their performance, and predict their placement readiness using analytics and an ML service.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(2. Main Goal of the Project) Tj
+0 -16 Td
+(The goal of the project is to move beyond simple test scores and provide meaningful insights like) Tj
+0 -16 Td
+(readiness score, success probability, weak-topic identification, and batch-level analytics.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(3. Tech Stack) Tj
+0 -16 Td
+(Frontend: React, TypeScript, Vite) Tj
+0 -16 Td
+(Backend: Node.js, Express.js) Tj
+0 -16 Td
+(Database: MongoDB) Tj
+0 -16 Td
+(ML Service: Python, FastAPI) Tj
+0 -16 Td
+(Charts: Recharts) Tj
+0 -16 Td
+(Authentication: JWT-based login) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(4. Main Parts of the Project) Tj
+0 -16 Td
+(Frontend: Displays student and admin dashboards and handles user interaction.) Tj
+0 -16 Td
+(Backend: Handles authentication, tests, scoring, analytics, and DB communication.) Tj
+0 -16 Td
+(ML Service: Calculates readiness score, success probability, and weak topics.) Tj
+0 -16 Td
+(Database: Stores users, tests, results, and predictions.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(5. Working Flow) Tj
+0 -16 Td
+(1. User logs in.) Tj
+0 -16 Td
+(2. Student selects and starts a mock test.) Tj
+0 -16 Td
+(3. Student answers aptitude questions section by section.) Tj
+0 -16 Td
+(4. Backend evaluates answers after submission.) Tj
+0 -16 Td
+(5. Backend computes section scores, average score, accuracy, and time taken.) Tj
+0 -16 Td
+(6. Backend stores the test result in MongoDB.) Tj
+0 -16 Td
+(7. Backend sends performance features to the ML service.) Tj
+0 -16 Td
+(8. ML service returns readiness score, success probability, weak topics, and feature contributions.) Tj
+0 -16 Td
+(9. Student dashboard displays analytics and prediction results.) Tj
+0 -16 Td
+(10. Admin dashboard displays batch-level insights and risk categories.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(6. Student Dashboard) Tj
+0 -16 Td
+(Shows placement success probability, readiness score, weakness alert, tests taken count,) Tj
+0 -16 Td
+(skill radar chart, performance trend, and available mock tests.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(7. Admin Dashboard) Tj
+0 -16 Td
+(Shows total students, safe/moderate/at-risk categories, batch heatmap, weak-topic analysis,) Tj
+0 -16 Td
+(and student performance table.) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 2720 >>
+stream
+BT
+/F1 16 Tf
+72 800 Td
+(AptiSense Viva and Presentation Guide) Tj
+0 -28 Td
+/F1 11 Tf
+() Tj
+0 -16 Td
+(8. Important Database Collections) Tj
+0 -16 Td
+(User: stores name, email, password, role.) Tj
+0 -16 Td
+(Test: stores title, pattern, time limit, sections, questions, options, correct answers.) Tj
+0 -16 Td
+(TestResult: stores section scores, average score, accuracy, time taken, and references.) Tj
+0 -16 Td
+(Prediction: stores success probability, readiness score, weak topics, and shap-like values.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(9. How Scoring Works) Tj
+0 -16 Td
+(The backend compares selected options with the correct answers and calculates section-wise) Tj
+0 -16 Td
+(and overall performance metrics. These results are saved in the database.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(10. How Prediction Works) Tj
+0 -16 Td
+(The ML service uses performance features such as quant score, logical score, verbal score,) Tj
+0 -16 Td
+(average score, test count, and attempt quality. Based on these inputs, it calculates a) Tj
+0 -16 Td
+(readiness score and success probability and identifies weak topics.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(11. Key Viva Answer) Tj
+0 -16 Td
+(If asked whether this is a full trained ML model, answer honestly:) Tj
+0 -16 Td
+(The current version uses weighted predictive logic through a separate ML service, and it can) Tj
+0 -16 Td
+(be upgraded later to a fully trained machine learning model using real student placement data.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(12. Advantages) Tj
+0 -16 Td
+(1. Easy-to-use interface) Tj
+0 -16 Td
+(2. Automated test evaluation) Tj
+0 -16 Td
+(3. Section-wise analytics) Tj
+0 -16 Td
+(4. Readiness prediction) Tj
+0 -16 Td
+(5. Weak-topic identification) Tj
+0 -16 Td
+(6. Useful for both students and admins) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(13. Limitations) Tj
+0 -16 Td
+(1. Prediction logic is currently basic) Tj
+0 -16 Td
+(2. Focused only on aptitude sections) Tj
+0 -16 Td
+(3. Depends on proper backend, database, and ML setup) Tj
+0 -16 Td
+(4. Does not yet support coding or interview rounds) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(14. Future Scope) Tj
+0 -16 Td
+(1. Add coding assessment) Tj
+0 -16 Td
+(2. Add personalized recommendations) Tj
+0 -16 Td
+(3. Use trained ML models on real datasets) Tj
+0 -16 Td
+(4. Support company-specific test patterns) Tj
+0 -16 Td
+(5. Deploy as a cloud-based platform) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(15. 60-Second Presentation Script) Tj
+0 -16 Td
+(My project is AptiSense, an AI-powered aptitude assessment and placement readiness prediction system.) Tj
+0 -16 Td
+(It helps students prepare for placements by providing mock aptitude tests, performance analytics,) Tj
+0 -16 Td
+(and predictive insights. The frontend is built with React and TypeScript, the backend uses Node.js) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Length 2358 >>
+stream
+BT
+/F1 16 Tf
+72 800 Td
+(AptiSense Viva and Presentation Guide) Tj
+0 -28 Td
+/F1 11 Tf
+(and Express, MongoDB stores the data, and a Python FastAPI service generates prediction insights.) Tj
+0 -16 Td
+(After a student submits a test, the backend calculates scores, stores results, sends performance) Tj
+0 -16 Td
+(features to the ML service, and then shows readiness score, success probability, and weak topics) Tj
+0 -16 Td
+(on the student dashboard. Admins can also monitor batch performance and topic-wise weaknesses.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(16. Common Viva Questions and Short Answers) Tj
+0 -16 Td
+(Q1. What is AptiSense?) Tj
+0 -16 Td
+(A web-based aptitude assessment and placement readiness prediction platform.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q2. Why did you build this project?) Tj
+0 -16 Td
+(To help students understand readiness and weak areas, not just raw marks.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q3. Why use React?) Tj
+0 -16 Td
+(To build a reusable and interactive frontend with dashboards.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q4. Why use MongoDB?) Tj
+0 -16 Td
+(Because the project data fits well into document-based storage.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q5. Why use FastAPI?) Tj
+0 -16 Td
+(Because it is lightweight and efficient for ML-related APIs.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q6. What does the backend do?) Tj
+0 -16 Td
+(It handles authentication, tests, scoring, analytics, and DB operations.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q7. What does the ML service do?) Tj
+0 -16 Td
+(It predicts readiness score, success probability, and weak topics from performance features.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q8. What is JWT used for?) Tj
+0 -16 Td
+(JWT is used for secure login and protected API access.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q9. What is the role of the admin?) Tj
+0 -16 Td
+(To monitor batch performance and identify students at risk.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(Q10. What is future scope?) Tj
+0 -16 Td
+(Coding assessment, stronger ML models, and personalized recommendations.) Tj
+0 -16 Td
+() Tj
+0 -16 Td
+(17. Final Survival Template for Viva) Tj
+0 -16 Td
+(If you forget details, say:) Tj
+0 -16 Td
+(The frontend handles the user interface.) Tj
+0 -16 Td
+(The backend handles business logic and database operations.) Tj
+0 -16 Td
+(The ML service predicts readiness from test performance features.) Tj
+0 -16 Td
+(MongoDB stores users, tests, results, and predictions.) Tj
+ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000000379 00000 n 
+0000000505 00000 n 
+0000000575 00000 n 
+0000003283 00000 n 
+0000006055 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+8465
+%%EOF
