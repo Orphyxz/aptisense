@@ -215,6 +215,6 @@ def make_pdf(output_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    output = Path("AptiSense_Viva_Guide.pdf")
+    output = Path(__file__).with_name("AptiSense_Viva_Guide.pdf")
     make_pdf(output)
     print(f"Created {output.resolve()}")

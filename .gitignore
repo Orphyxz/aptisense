@@ -8,3 +8,16 @@ frontend/dist/
 backend/src/uploads/notes/
 backend/uploads/notes/
 *.log
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
